@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B2B.Entities.Concrete
+namespace B2B.Entities.Dtos
 {
-    public class Brand
+    public class BrandDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public int ModelId { get; set; }
-        public Model Model { get; set; }
-
-        public ICollection<Product> Products { get; set; }
     }
 }

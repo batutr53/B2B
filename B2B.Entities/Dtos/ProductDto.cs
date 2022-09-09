@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B2B.Entities.Concrete
+namespace B2B.Entities.Dtos
 {
-    public class Product
+    public class ProductDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -16,9 +16,5 @@ namespace B2B.Entities.Concrete
         public int ProductDetailId { get; set; }
         public int BrandId { get; set; }
         public int ProductImageId { get; set; }
-        public Category Category { get; set; }
-        public ProductDetail? ProductDetail { get; set; }
-        public ProductImage? ProductImage { get; set; }
-        public Brand Brand { get; set; }
     }
 }

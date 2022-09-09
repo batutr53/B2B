@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B2B.Entities.Concrete
+namespace B2B.Entities.Dtos
 {
-    public class Model
+    public class ProductImageDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-
-        public ICollection<Brand> Brands { get; set; }
+        public string ImagesUrl { get; set; }
     }
 }
