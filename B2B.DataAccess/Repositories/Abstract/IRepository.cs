@@ -12,7 +12,7 @@ namespace B2B.DataAccess.Repositories.Abstract
         Task<T> GetByIdAsync(int id);
         IQueryable<T> GetAll();
         IQueryable<T> All();
-        IQueryable<T> Where(Expression<Func<T, bool>> expression);
+        IQueryable<T> Where(Expression<Func<T, bool>> expressio);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
         Task AddAsync(T entity);
         Task AddRangeAsync(IEnumerable<T> entities);
