@@ -17,5 +17,12 @@ namespace B2B.API.Controllers
             _categoryService = categoryService;
             _mapper = mapper;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var asd = await _categoryService.GetAllAsync();
+            return StatusCode(200,asd);
+        }
     }
 }

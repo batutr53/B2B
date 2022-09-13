@@ -3,6 +3,7 @@ using B2B.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace B2B.DataAccess.Migrations
 {
     [DbContext(typeof(B2BDbContext))]
-    partial class B2BDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220913110357_seed")]
+    partial class seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,11 +31,16 @@ namespace B2B.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("ModelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ModelId");
 
                     b.ToTable("Brands");
 
@@ -41,16 +48,19 @@ namespace B2B.DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            ModelId = 1,
                             Name = "Bajaj"
                         },
                         new
                         {
                             Id = 2,
+                            ModelId = 2,
                             Name = "Ducati"
                         },
                         new
                         {
                             Id = 3,
+                            ModelId = 1,
                             Name = "Honda"
                         });
                 });
@@ -131,9 +141,6 @@ namespace B2B.DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("ModelId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -144,15 +151,18 @@ namespace B2B.DataAccess.Migrations
                     b.Property<int>("ProductDetailId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProductImageId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ModelId");
-
                     b.HasIndex("ProductDetailId");
+
+                    b.HasIndex("ProductImageId");
 
                     b.ToTable("Products");
 
@@ -163,10 +173,10 @@ namespace B2B.DataAccess.Migrations
                             BrandId = 1,
                             CategoryId = 1,
                             Description = "HIZ TUTKUNUZUN YENİ PARTNERİ Tutkunuzu hızlandıracak,hız tutkunuza partner olacak Pulsar RS 200 ile tanışın.RS 200 ile yolculuklarınız hızlanacak, tutkunuz aşka dönüşecek.Pulsar RS 200 Hız tutkunuzun yeni partneri",
-                            ModelId = 1,
                             Name = "Bajaj Pulsar Rs 200 2022",
                             Price = 73505m,
-                            ProductDetailId = 1
+                            ProductDetailId = 1,
+                            ProductImageId = 1
                         },
                         new
                         {
@@ -174,10 +184,10 @@ namespace B2B.DataAccess.Migrations
                             BrandId = 1,
                             CategoryId = 1,
                             Description = "Dominar 400'ün 29.4kW güç ve 35 Nm tork üretebilen canavar gücündeki motoru ile yol maceranıza hazırlanın ve yola koyulun.",
-                            ModelId = 2,
                             Name = "Bajaj Pulsar Dominar Tur 400",
                             Price = 118000m,
-                            ProductDetailId = 2
+                            ProductDetailId = 2,
+                            ProductImageId = 2
                         });
                 });
 
@@ -224,9 +234,6 @@ namespace B2B.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("ProductImages");
@@ -235,45 +242,24 @@ namespace B2B.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/kuralkan/htlm_dosyalar/rs200/banner-rs200.jpg",
-                            ProductId = 1
+                            ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/kuralkan/htlm_dosyalar/rs200/banner-rs200.jpg"
                         },
                         new
                         {
                             Id = 2,
-                            ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/360/dominar%20D400%20EURO%205%20aksesuarl%C4%B1/k15.png",
-                            ProductId = 2
+                            ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/360/dominar%20D400%20EURO%205%20aksesuarl%C4%B1/k15.png"
                         });
                 });
 
-            modelBuilder.Entity("BrandModel", b =>
+            modelBuilder.Entity("B2B.Entities.Concrete.Brand", b =>
                 {
-                    b.Property<int>("BrandsId")
-                        .HasColumnType("int");
+                    b.HasOne("B2B.Entities.Concrete.Model", "Model")
+                        .WithMany("Brands")
+                        .HasForeignKey("ModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("ModelsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BrandsId", "ModelsId");
-
-                    b.HasIndex("ModelsId");
-
-                    b.ToTable("BrandModel");
-                });
-
-            modelBuilder.Entity("ProductProductImage", b =>
-                {
-                    b.Property<int>("ProductImagesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductImagesId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("ProductProductImage");
+                    b.Navigation("Model");
                 });
 
             modelBuilder.Entity("B2B.Entities.Concrete.Product", b =>
@@ -290,15 +276,15 @@ namespace B2B.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("B2B.Entities.Concrete.Model", "Model")
-                        .WithMany()
-                        .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("B2B.Entities.Concrete.ProductDetail", "ProductDetail")
                         .WithMany("Products")
                         .HasForeignKey("ProductDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("B2B.Entities.Concrete.ProductImage", "ProductImage")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -306,39 +292,9 @@ namespace B2B.DataAccess.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("Model");
-
                     b.Navigation("ProductDetail");
-                });
 
-            modelBuilder.Entity("BrandModel", b =>
-                {
-                    b.HasOne("B2B.Entities.Concrete.Brand", null)
-                        .WithMany()
-                        .HasForeignKey("BrandsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("B2B.Entities.Concrete.Model", null)
-                        .WithMany()
-                        .HasForeignKey("ModelsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ProductProductImage", b =>
-                {
-                    b.HasOne("B2B.Entities.Concrete.ProductImage", null)
-                        .WithMany()
-                        .HasForeignKey("ProductImagesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("B2B.Entities.Concrete.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ProductImage");
                 });
 
             modelBuilder.Entity("B2B.Entities.Concrete.Brand", b =>
@@ -351,7 +307,17 @@ namespace B2B.DataAccess.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("B2B.Entities.Concrete.Model", b =>
+                {
+                    b.Navigation("Brands");
+                });
+
             modelBuilder.Entity("B2B.Entities.Concrete.ProductDetail", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("B2B.Entities.Concrete.ProductImage", b =>
                 {
                     b.Navigation("Products");
                 });

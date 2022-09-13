@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B2B.Entities.Dtos
+namespace B2B.SharedTools
 {
-    public class BrandDto
+    public class AppSettings
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public string Secret { get; set; }
     }
 }

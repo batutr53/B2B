@@ -15,10 +15,11 @@ namespace B2B.Entities.Concrete
         public int CategoryId { get; set; }
         public int ProductDetailId { get; set; }
         public int BrandId { get; set; }
-        public int ProductImageId { get; set; }
+        public int ModelId { get; set; }
         public Category Category { get; set; }
         public ProductDetail? ProductDetail { get; set; }
-        public ProductImage? ProductImage { get; set; }
+        public ICollection<ProductImage?> ProductImages { get; set; }
         public Brand Brand { get; set; }
+        public Model Model { get; set; }
     }
 }

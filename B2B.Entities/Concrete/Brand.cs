@@ -10,9 +10,9 @@ namespace B2B.Entities.Concrete
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int ModelId { get; set; }
-        public Model Model { get; set; }
+     
 
         public ICollection<Product> Products { get; set; }
+        public ICollection<Model> Models { get; set; }
     }
 }

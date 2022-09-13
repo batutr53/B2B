@@ -15,6 +15,6 @@ namespace B2B.Entities.Dtos
         public int CategoryId { get; set; }
         public int ProductDetailId { get; set; }
         public int BrandId { get; set; }
-        public int ProductImageId { get; set; }
+        public int ModelId { get; set; }
     }
 }
