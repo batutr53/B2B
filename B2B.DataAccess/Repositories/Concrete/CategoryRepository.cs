@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace B2B.DataAccess.Repositories.Concrete
 {
-    public class ProductRepository : Repository<Product>, IProductRepository
+    public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
         private readonly B2BDbContext _dbContext;
-        public ProductRepository(B2BDbContext context) : base(context)
+        public CategoryRepository(B2BDbContext context) : base(context)
         {
             _dbContext = context;
         }

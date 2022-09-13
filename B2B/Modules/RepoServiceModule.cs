@@ -14,10 +14,10 @@ namespace B2B.API.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterGeneric(typeof(IRepository<>)).As(typeof(Repository<>)).InstancePerLifetimeScope();
-            builder.RegisterGeneric(typeof(IServices<>)).As(typeof(Services<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(Services<>)).As(typeof(IServices<>)).InstancePerLifetimeScope();
 
-            builder.RegisterType<IUnitOfWork>().As<UnitOfWork>();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
             var apiAssembly = Assembly.GetExecutingAssembly();
             var repoAssembly = Assembly.GetAssembly(typeof(B2BDbContext));

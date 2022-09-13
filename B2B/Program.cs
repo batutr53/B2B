@@ -1,3 +1,6 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using B2B.API.Modules;
 using B2B.Business.Services.Abstract;
 using B2B.Business.Services.Concrete;
 using B2B.DataAccess;
@@ -12,18 +15,25 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Add services to the container.
+
+#region SqlServerConnection
 var conString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<B2BDbContext>(opt => { opt.UseSqlServer(conString); });
+#endregion
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+
+#region Swagger
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGenOptions>();
 builder.Services.AddSwaggerGen();
-
-
 var appSettings = builder.Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettings);
 var appSettingsB = appSettings.Get<AppSettings>();
@@ -43,6 +53,17 @@ builder.Services.AddAuthentication(x =>
         ValidateAudience = false
     };
 });
+
+#endregion
+
+
+#region AutoFacRepoService
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
+#endregion
+
+
+
 
 var app = builder.Build();
 
