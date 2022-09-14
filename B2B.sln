@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2B.API", "B2B\B2B.API.csproj", "{B9F5EB12-DD46-4CAE-855A-66409FA76502}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2B.Business", "B2B.Business\B2B.Business.csproj", "{8B37FE57-9722-4504-868E-8B2CECBC8C04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2B.Business", "B2B.Business\B2B.Business.csproj", "{8B37FE57-9722-4504-868E-8B2CECBC8C04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2B.Core", "B2B.Core\B2B.Core.csproj", "{6C85FED5-830B-4DA7-9785-03397B85D8BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2B.Core", "B2B.Core\B2B.Core.csproj", "{6C85FED5-830B-4DA7-9785-03397B85D8BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2B.DataAccess", "B2B.DataAccess\B2B.DataAccess.csproj", "{E35F5523-8B3C-4A27-9E0A-4F7D91B5F725}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2B.DataAccess", "B2B.DataAccess\B2B.DataAccess.csproj", "{E35F5523-8B3C-4A27-9E0A-4F7D91B5F725}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2B.Entities", "B2B.Entities\B2B.Entities.csproj", "{B2D29E7B-C84B-4F28-92E2-CE3CB34EA92D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2B.Entities", "B2B.Entities\B2B.Entities.csproj", "{B2D29E7B-C84B-4F28-92E2-CE3CB34EA92D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2B.SharedTools", "B2B.SharedTools\B2B.SharedTools.csproj", "{FA829F25-76AE-4315-A679-10363C3C813F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2B.SharedTools", "B2B.SharedTools\B2B.SharedTools.csproj", "{FA829F25-76AE-4315-A679-10363C3C813F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2B.API", "B2B.API\B2B.API.csproj", "{F17D40BA-6362-492F-A491-2C8BC681736F}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{82916852-41AD-4E92-B2E3-9A5045450951}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B9F5EB12-DD46-4CAE-855A-66409FA76502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9F5EB12-DD46-4CAE-855A-66409FA76502}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9F5EB12-DD46-4CAE-855A-66409FA76502}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9F5EB12-DD46-4CAE-855A-66409FA76502}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B37FE57-9722-4504-868E-8B2CECBC8C04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B37FE57-9722-4504-868E-8B2CECBC8C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B37FE57-9722-4504-868E-8B2CECBC8C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +43,14 @@ Global
 		{FA829F25-76AE-4315-A679-10363C3C813F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA829F25-76AE-4315-A679-10363C3C813F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA829F25-76AE-4315-A679-10363C3C813F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F17D40BA-6362-492F-A491-2C8BC681736F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F17D40BA-6362-492F-A491-2C8BC681736F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F17D40BA-6362-492F-A491-2C8BC681736F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F17D40BA-6362-492F-A491-2C8BC681736F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82916852-41AD-4E92-B2E3-9A5045450951}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82916852-41AD-4E92-B2E3-9A5045450951}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82916852-41AD-4E92-B2E3-9A5045450951}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82916852-41AD-4E92-B2E3-9A5045450951}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

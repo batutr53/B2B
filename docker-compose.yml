@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  b2bdb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  b2b.api:
+    image: ${DOCKER_REGISTRY-}b2bapi
+    build:
+      context: .
+      dockerfile: B2B.API/Dockerfile
+   

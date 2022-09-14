@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "b2b.api",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "b2b.api": "StartDebugging",
+        "b2bdb": "StartWithoutDebugging"
+      }
+    }
+  }
+}

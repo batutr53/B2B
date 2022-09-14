@@ -1,0 +1,24 @@
+version: '3.4'
+
+services: 
+    b2bdb:
+     container_name: b2bdb
+     restart: always
+     environment: 
+      - SA_PASSWORD=12131213Qq1
+      - ACCEPT_EULA=Y
+     ports:
+      - "1433:1433"
+
+
+    b2b.api:
+     environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - "ConnectionStrings:DefaultConnection=Server=b2bdb,1433;Database=b2bsqldb;User=sa;Password=12131213Qq1"
+     ports:
+      - "8080:80"
+      - "8081:443"
+     volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
