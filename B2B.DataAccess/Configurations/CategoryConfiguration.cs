@@ -14,6 +14,7 @@ namespace B2B.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<Model> builder)
         {
             builder.Property(x => x.Name).IsRequired();
+           
         }
     }
 }

@@ -20,6 +20,12 @@ namespace B2B.API.Controllers
         {
             var response = await _productService.GetProductWithCategory(categoryId);
             return CreateActionResultInstance(response);
+
+
+            if (ModelState.IsValid)
+            {
+
+            }
         }
     }
 }

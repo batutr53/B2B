@@ -7,6 +7,9 @@ using B2B.Business.Services.Concrete;
 using B2B.Business.Services.Abstract;
 using B2B.DataAccess;
 using B2B.Business.Mapping;
+using Castle.DynamicProxy;
+using Autofac.Extras.DynamicProxy;
+using B2B.Core.Utilities.Interceptors;
 
 namespace B2B.Business.Modules
 {
@@ -32,6 +35,11 @@ namespace B2B.Business.Modules
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly)
                 .Where(x => x.Name.EndsWith("Service")).AsImplementedInterfaces().
                 InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(apiAssembly).AsImplementedInterfaces().EnableInterfaceInterceptors(new ProxyGenerationOptions()
+            {
+                Selector = new AspectInterceptorSelector()
+            }).SingleInstance();
+              
         }
     }
 }
