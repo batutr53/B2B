@@ -9,9 +9,11 @@
   <ItemGroup>
     <ProjectReference Include="..\B2B.DataAccess\B2B.DataAccess.csproj" />
     <ProjectReference Include="..\B2B.Entities\B2B.Entities.csproj" />
+    <ProjectReference Include="..\B2B.SharedTools\B2B.SharedTools.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.4.0" />
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>

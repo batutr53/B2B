@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace B2B.DataAccess.Migrations
 {
     [DbContext(typeof(B2BDbContext))]
-    [Migration("20220913112132_ModelsBrands")]
-    partial class ModelsBrands
+    [Migration("20220913133823_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

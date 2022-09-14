@@ -1,5 +1,7 @@
-﻿using B2B.Business.Services.Abstract;
+﻿using AutoMapper;
+using B2B.Business.Services.Abstract;
 using B2B.DataAccess.Repositories.Abstract;
+using B2B.SharedTools.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ namespace B2B.Business.Services.Concrete
     {
         private readonly IRepository<T> _repository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public Services(IRepository<T> repository, IUnitOfWork unitOfWork)
         {
@@ -22,6 +25,7 @@ namespace B2B.Business.Services.Concrete
         }
         public async Task<T> AddAsync(T entity)
         {
+            
             await _repository.AddAsync(entity);
             await _unitOfWork.SaveAsync();
             return entity;
@@ -48,6 +52,7 @@ namespace B2B.Business.Services.Concrete
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _repository.GetAll().ToListAsync();
+            
         }
 
         public async Task<T> GetByIdAsync(int id)

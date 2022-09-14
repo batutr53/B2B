@@ -8,7 +8,7 @@ using B2B.Business.Services.Abstract;
 using B2B.DataAccess;
 using B2B.Business.Mapping;
 
-namespace B2B.API.Modules
+namespace B2B.Business.Modules
 {
     public class RepoServiceModule:Module
     {
@@ -19,6 +19,9 @@ namespace B2B.API.Modules
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
+            builder.RegisterInstance(AutoMapperConfig.Initialize()).SingleInstance();
+
+
             var apiAssembly = Assembly.GetExecutingAssembly();
             var repoAssembly = Assembly.GetAssembly(typeof(B2BDbContext));
             var serviceAssembly = Assembly.GetAssembly(typeof(MapProfile));
@@ -26,7 +29,6 @@ namespace B2B.API.Modules
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly)
                 .Where(x => x.Name.EndsWith("Repository")).AsImplementedInterfaces().
                 InstancePerLifetimeScope();
-
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly)
                 .Where(x => x.Name.EndsWith("Service")).AsImplementedInterfaces().
                 InstancePerLifetimeScope();

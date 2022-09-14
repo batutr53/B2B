@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using B2B.API.Modules;
+using B2B.Business.Mapping;
+using B2B.Business.Modules;
 using B2B.Business.Services.Abstract;
 using B2B.Business.Services.Concrete;
 using B2B.DataAccess;
@@ -17,7 +18,6 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddAutoMapper(typeof(Program));
 
 // Add services to the container.
 

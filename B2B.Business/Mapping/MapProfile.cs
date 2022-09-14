@@ -14,6 +14,11 @@ namespace B2B.Business.Mapping
         public MapProfile()
         {
             CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Brand, BrandDto>().ReverseMap();
+            CreateMap<Model, ModelDto>().ReverseMap();
+            CreateMap<ProductDetail, ProductDetailDto>().ReverseMap();
+            CreateMap<ProductImageDto, ProductImageDto>().ReverseMap();
         }
     }
 }
