@@ -1,6 +1,9 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using B2B.Business.Modules;
+using B2B.Core.DependencyResolvers;
+using B2B.Core.Extensions;
+using B2B.Core.Utilities.IoC;
 using B2B.DataAccess;
 using B2B.SharedTools;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -52,6 +55,11 @@ builder.Services.AddAuthentication(x =>
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
 #endregion
+
+builder.Services.AddDependencyResolvers(new ICoreModule[]{
+    new CoreModule()
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

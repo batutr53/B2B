@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using B2B.Business.Services.Abstract;
 using B2B.Business.ValidationRules.FluentValidation;
+using B2B.Core.Aspects.Autofac.Caching;
 using B2B.Core.Aspects.Autofac.Validation;
 using B2B.DataAccess.Repositories.Abstract;
 using B2B.Entities.Concrete;
@@ -25,12 +26,19 @@ namespace B2B.Business.Services.Concrete
         }
 
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheAspect(duration:1)]
         public async Task<Response<List<ProductWithCategoryDto>>> GetProductWithCategory(int categoryId)
         {
-            
             var products = await _productRepository.GetProductWithCategory(categoryId);
             var productsDto = _mapper.Map<List<ProductWithCategoryDto>>(products);
             return Response<List<ProductWithCategoryDto>>.Success(productsDto,200);
         }
+
+        //[CacheRemoveAspect("IProductService.Get")]
+        //public async Task<Response<List<Product>>> Add(Product product)
+        //{
+        // //   var add = await _productRepository.AddAsync(_mapper.Map<Product>(product));
+        //   // return Response<Product<>>.Success(add);
+        //}
     }
 }
