@@ -14,6 +14,8 @@ namespace B2B.Business.Mapping
         public MapProfile()
         {
             CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Product, ProductWithCategoryDto>().ForMember(x=>x.CategoryId,o=>o.MapFrom(s=>s.Category.Id));
+            CreateMap<Category, ProductWithCategoryDto>().ReverseMap();
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<Brand, BrandDto>().ReverseMap();
             CreateMap<Model, ModelDto>().ReverseMap();
