@@ -4,7 +4,7 @@
 
 namespace B2B.DataAccess.Migrations
 {
-    public partial class init : Migration
+    public partial class initim : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -208,8 +208,8 @@ namespace B2B.DataAccess.Migrations
                 columns: new[] { "Id", "ImagesUrl", "ProductId" },
                 values: new object[,]
                 {
-                    { 1, "https://www.ekuralkan.com/Data/EditorFiles/kuralkan/htlm_dosyalar/rs200/banner-rs200.jpg", 1 },
-                    { 2, "https://www.ekuralkan.com/Data/EditorFiles/360/dominar%20D400%20EURO%205%20aksesuarl%C4%B1/k15.png", 2 }
+                    { 1, "https://www.ekuralkan.com/Data/EditorFiles/kuralkan/htlm_dosyalar/rs200/banner-rs200.jpg", 0 },
+                    { 2, "https://www.ekuralkan.com/Data/EditorFiles/360/dominar%20D400%20EURO%205%20aksesuarl%C4%B1/k15.png", 0 }
                 });
 
             migrationBuilder.InsertData(

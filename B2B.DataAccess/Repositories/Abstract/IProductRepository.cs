@@ -10,6 +10,7 @@ namespace B2B.DataAccess.Repositories.Abstract
 {
     public interface IProductRepository:IRepository<Product>
     {
+        Task<List<Product>> GetList();
         Task<List<Product>> GetProductWithCategory(int categoryId);
     }
 }

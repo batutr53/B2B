@@ -10,5 +10,6 @@ namespace B2B.Entities.Dtos
     {
         public int Id { get; set; }
         public string ImagesUrl { get; set; }
+        public int ProductId { get; set; }
     }
 }

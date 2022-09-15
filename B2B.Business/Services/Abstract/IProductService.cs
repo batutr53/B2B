@@ -11,6 +11,7 @@ namespace B2B.Business.Services.Abstract
 {
     public interface IProductService:IServices<Product>
     {
+        Task<Response<List<ProductGetAllListDto>>> GetProductList();
         Task<Response<List<ProductWithCategoryDto>>> GetProductWithCategory(int categoryId);
     }
 }

@@ -15,17 +15,18 @@ namespace B2B.API.Controllers
             _productService = productService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetProductList()
+        {
+            var response = await _productService.GetProductList();
+            return CreateActionResultInstance(response);
+        }
+
         [HttpGet("[action]/{categoryId}")]
         public async Task<IActionResult> GetProductWithCategory(int categoryId)
         {
             var response = await _productService.GetProductWithCategory(categoryId);
             return CreateActionResultInstance(response);
-
-
-            if (ModelState.IsValid)
-            {
-
-            }
         }
     }
 }

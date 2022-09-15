@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace B2B.Entities.Concrete
 {
-    public class ProductImage
+    public class Log
     {
         public int Id { get; set; }
-        public string ImagesUrl { get; set; }
-        public int ProductId { get; set; }
-
-        public ICollection<Product> Products { get; set; }
+        public string Detail { get; set; }
+        public DateTime Date { get; set; }
+        public string Audit { get; set; }
     }
 }

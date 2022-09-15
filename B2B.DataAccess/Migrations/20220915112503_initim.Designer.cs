@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace B2B.DataAccess.Migrations
 {
     [DbContext(typeof(B2BDbContext))]
-    [Migration("20220913133823_init")]
-    partial class init
+    [Migration("20220915112503_initim")]
+    partial class initim
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -238,13 +238,13 @@ namespace B2B.DataAccess.Migrations
                         {
                             Id = 1,
                             ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/kuralkan/htlm_dosyalar/rs200/banner-rs200.jpg",
-                            ProductId = 1
+                            ProductId = 0
                         },
                         new
                         {
                             Id = 2,
                             ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/360/dominar%20D400%20EURO%205%20aksesuarl%C4%B1/k15.png",
-                            ProductId = 2
+                            ProductId = 0
                         });
                 });
 

@@ -17,6 +17,16 @@ namespace B2B.DataAccess.Repositories.Concrete
            _dbContext = context;
         }
 
+        public async Task<List<Product>> GetList()
+        {
+            return await _dbContext.Products
+                .Include(c => c.Category)
+                .Include(b => b.Brand)
+                .Include(m => m.Model)
+                .Include(p => p.ProductDetail)
+                .Include(pi => pi.ProductImages).AsNoTracking().ToListAsync();
+        }
+
         public async Task<List<Product>> GetProductWithCategory(int categoryId)
         {
             return await _dbContext.Products
