@@ -2,6 +2,9 @@
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 
 namespace B2B.SharedTools

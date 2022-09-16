@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2B.Entities", "B2B.Entitie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2B.SharedTools", "B2B.SharedTools\B2B.SharedTools.csproj", "{FA829F25-76AE-4315-A679-10363C3C813F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2B.API", "B2B.API\B2B.API.csproj", "{F17D40BA-6362-492F-A491-2C8BC681736F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2B.API", "B2B.API\B2B.API.csproj", "{F17D40BA-6362-492F-A491-2C8BC681736F}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{82916852-41AD-4E92-B2E3-9A5045450951}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2B.IdentityServer", "IdentityServer\B2B.IdentityServer\B2B.IdentityServer.csproj", "{ADBCA823-9CE7-46AD-AE39-39B1E7DB222C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{82916852-41AD-4E92-B2E3-9A5045450951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82916852-41AD-4E92-B2E3-9A5045450951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82916852-41AD-4E92-B2E3-9A5045450951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADBCA823-9CE7-46AD-AE39-39B1E7DB222C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADBCA823-9CE7-46AD-AE39-39B1E7DB222C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADBCA823-9CE7-46AD-AE39-39B1E7DB222C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADBCA823-9CE7-46AD-AE39-39B1E7DB222C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
