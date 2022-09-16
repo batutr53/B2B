@@ -4,6 +4,7 @@ using B2B.Core.Aspects.Autofac.Caching;
 using B2B.Entities.Concrete;
 using B2B.Entities.Dtos;
 using B2B.SharedTools.Dtos;
+using B2B.SharedTools.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,7 @@ namespace B2B.API.Controllers
     public class ProductsController : CustomBaseController
     {
         private readonly IProductService _productService;
+       // private readonly ISharedIdentityService _sharedIdentityService;
         private readonly IMapper _mapper;
 
         public ProductsController(IProductService productService, IMapper mapper)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B2B.SharedTools
+namespace B2B.SharedTools.Settings
 {
     public class AppSettings
     {

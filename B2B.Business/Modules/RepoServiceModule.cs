@@ -17,6 +17,7 @@ namespace B2B.Business.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Services<>)).As(typeof(IServices<>)).InstancePerLifetimeScope();
 

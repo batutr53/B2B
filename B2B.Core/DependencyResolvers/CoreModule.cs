@@ -1,6 +1,7 @@
 ﻿using B2B.Core.CrossCuttingConcerns.Caching;
 using B2B.Core.CrossCuttingConcerns.Caching.Microsoft;
 using B2B.Core.Utilities.IoC;
+using B2B.SharedTools.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace B2B.Core.DependencyResolvers
     {
         public void Load(IServiceCollection services)
         {
+            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddMemoryCache();
             services.AddSingleton<ICacheManager, MemoryCacheManager>();
             services.AddSingleton<Stopwatch>();
