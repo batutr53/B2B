@@ -1,4 +1,9 @@
-﻿using B2B.Business.Services.Abstract;
+﻿using AutoMapper;
+using B2B.Business.Services.Abstract;
+using B2B.Core.Aspects.Autofac.Caching;
+using B2B.Entities.Concrete;
+using B2B.Entities.Dtos;
+using B2B.SharedTools.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +14,12 @@ namespace B2B.API.Controllers
     public class ProductsController : CustomBaseController
     {
         private readonly IProductService _productService;
+        private readonly IMapper _mapper;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, IMapper mapper)
         {
             _productService = productService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -28,5 +35,15 @@ namespace B2B.API.Controllers
             var response = await _productService.GetProductWithCategory(categoryId);
             return CreateActionResultInstance(response);
         }
+
+        [HttpPost]
+        [CacheRemoveAspect("IProductService.Get")]
+        public async Task<IActionResult> PostProduct(ProductCreateDto productDto)
+        {
+            var product = await _productService.AddAsync(_mapper.Map<Product>(productDto));
+            var productDtos = _mapper.Map<ProductCreateDto>(product);
+            return CreateActionResultInstance(Response<ProductCreateDto>.Success(productDtos, 201));
+        }
+
     }
 }

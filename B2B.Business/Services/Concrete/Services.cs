@@ -14,11 +14,11 @@ namespace B2B.Business.Services.Concrete
 {
     public class Services<T> : IServices<T> where T : class
     {
-        private readonly IRepository<T> _repository;
+        private readonly IGenericRepository<T> _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public Services(IRepository<T> repository, IUnitOfWork unitOfWork)
+        public Services(IGenericRepository<T> repository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;

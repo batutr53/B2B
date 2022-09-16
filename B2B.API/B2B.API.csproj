@@ -34,4 +34,8 @@
     <ProjectReference Include="..\B2B.SharedTools\B2B.SharedTools.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
 </Project>

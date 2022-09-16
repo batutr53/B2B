@@ -11,7 +11,7 @@ namespace B2B.Entities.Dtos
         public BrandDto Brand { get; set; }
         public CategoryDto Category { get; set; }
         public ModelDto Model { get; set; }
-        public List<ProductImageDto> Images { get; set; }
+        public List<ImageDto> Images { get; set; }
         public ProductDetailDto ProductDetail { get; set; }
     }
 }

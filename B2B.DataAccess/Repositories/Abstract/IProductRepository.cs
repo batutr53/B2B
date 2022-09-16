@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace B2B.DataAccess.Repositories.Abstract
 {
-    public interface IProductRepository:IRepository<Product>
+    public interface IProductRepository:IGenericRepository<Product>
     {
         Task<List<Product>> GetList();
         Task<List<Product>> GetProductWithCategory(int categoryId);

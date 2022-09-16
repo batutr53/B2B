@@ -10,6 +10,7 @@ namespace B2B.DataAccess.Repositories.Abstract
     {
         IProductRepository Product { get; }
         ICategoryRepository Category { get; }
+        IImageRepository Image { get; }
         Task SaveAsync();
         void Save();
     }

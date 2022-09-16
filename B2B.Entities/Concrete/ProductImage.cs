@@ -8,10 +8,10 @@ namespace B2B.Entities.Concrete
 {
     public class ProductImage
     {
-        public int Id { get; set; }
-        public string ImagesUrl { get; set; }
         public int ProductId { get; set; }
+        public Product Product { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public int ImageId { get; set; }
+        public Image Image { get; set; }
     }
 }

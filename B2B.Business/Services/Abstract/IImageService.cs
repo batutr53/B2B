@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B2B.DataAccess.Repositories.Abstract
+namespace B2B.Business.Services.Abstract
 {
-    public interface ICategoryRepository:IGenericRepository<Category>
+    public interface IImageService:IServices<Image>
     {
     }
 }

@@ -13,8 +13,9 @@ namespace B2B.Entities.Dtos
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
-        public int ProductDetailId { get; set; }
         public int BrandId { get; set; }
         public int ModelId { get; set; }
+
+
     }
 }

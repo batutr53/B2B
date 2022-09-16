@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace B2B.DataAccess.Repositories.Abstract
 {
-    public interface IRepository<T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
         Task<T> GetByIdAsync(int id);
         IQueryable<T> GetAll();

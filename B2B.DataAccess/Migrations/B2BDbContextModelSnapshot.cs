@@ -85,6 +85,35 @@ namespace B2B.DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("B2B.Entities.Concrete.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ImagesUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/kuralkan/htlm_dosyalar/rs200/banner-rs200.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/360/dominar%20D400%20EURO%205%20aksesuarl%C4%B1/k15.png"
+                        });
+                });
+
             modelBuilder.Entity("B2B.Entities.Concrete.Log", b =>
                 {
                     b.Property<int>("Id")
@@ -166,9 +195,6 @@ namespace B2B.DataAccess.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductDetailId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
@@ -176,8 +202,6 @@ namespace B2B.DataAccess.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("ModelId");
-
-                    b.HasIndex("ProductDetailId");
 
                     b.ToTable("Products");
 
@@ -190,8 +214,7 @@ namespace B2B.DataAccess.Migrations
                             Description = "HIZ TUTKUNUZUN YENİ PARTNERİ Tutkunuzu hızlandıracak,hız tutkunuza partner olacak Pulsar RS 200 ile tanışın.RS 200 ile yolculuklarınız hızlanacak, tutkunuz aşka dönüşecek.Pulsar RS 200 Hız tutkunuzun yeni partneri",
                             ModelId = 1,
                             Name = "Bajaj Pulsar Rs 200 2022",
-                            Price = 73505m,
-                            ProductDetailId = 1
+                            Price = 73505m
                         },
                         new
                         {
@@ -201,8 +224,7 @@ namespace B2B.DataAccess.Migrations
                             Description = "Dominar 400'ün 29.4kW güç ve 35 Nm tork üretebilen canavar gücündeki motoru ile yol maceranıza hazırlanın ve yola koyulun.",
                             ModelId = 2,
                             Name = "Bajaj Pulsar Dominar Tur 400",
-                            Price = 118000m,
-                            ProductDetailId = 2
+                            Price = 118000m
                         });
                 });
 
@@ -214,13 +236,35 @@ namespace B2B.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("CC")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Memory")
+                    b.Property<int?>("Hp")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Kg")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MaksSpeed")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Year")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique()
+                        .HasFilter("[ProductId] IS NOT NULL");
 
                     b.ToTable("ProductDetails");
 
@@ -239,35 +283,28 @@ namespace B2B.DataAccess.Migrations
 
             modelBuilder.Entity("B2B.Entities.Concrete.ProductImage", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ImagesUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "ImageId");
+
+                    b.HasIndex("ImageId");
 
                     b.ToTable("ProductImages");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/kuralkan/htlm_dosyalar/rs200/banner-rs200.jpg",
-                            ProductId = 0
+                            ProductId = 1,
+                            ImageId = 1
                         },
                         new
                         {
-                            Id = 2,
-                            ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/360/dominar%20D400%20EURO%205%20aksesuarl%C4%B1/k15.png",
-                            ProductId = 0
+                            ProductId = 2,
+                            ImageId = 2
                         });
                 });
 
@@ -284,21 +321,6 @@ namespace B2B.DataAccess.Migrations
                     b.HasIndex("ModelsId");
 
                     b.ToTable("BrandModel");
-                });
-
-            modelBuilder.Entity("ProductProductImage", b =>
-                {
-                    b.Property<int>("ProductImagesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductImagesId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("ProductProductImage");
                 });
 
             modelBuilder.Entity("B2B.Entities.Concrete.Product", b =>
@@ -321,19 +343,39 @@ namespace B2B.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("B2B.Entities.Concrete.ProductDetail", "ProductDetail")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
 
                     b.Navigation("Model");
+                });
 
-                    b.Navigation("ProductDetail");
+            modelBuilder.Entity("B2B.Entities.Concrete.ProductDetail", b =>
+                {
+                    b.HasOne("B2B.Entities.Concrete.Product", "Product")
+                        .WithOne("ProductDetail")
+                        .HasForeignKey("B2B.Entities.Concrete.ProductDetail", "ProductId");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("B2B.Entities.Concrete.ProductImage", b =>
+                {
+                    b.HasOne("B2B.Entities.Concrete.Image", "Image")
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("B2B.Entities.Concrete.Product", "Product")
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Image");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("BrandModel", b =>
@@ -351,21 +393,6 @@ namespace B2B.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProductProductImage", b =>
-                {
-                    b.HasOne("B2B.Entities.Concrete.ProductImage", null)
-                        .WithMany()
-                        .HasForeignKey("ProductImagesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("B2B.Entities.Concrete.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("B2B.Entities.Concrete.Brand", b =>
                 {
                     b.Navigation("Products");
@@ -376,9 +403,17 @@ namespace B2B.DataAccess.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("B2B.Entities.Concrete.ProductDetail", b =>
+            modelBuilder.Entity("B2B.Entities.Concrete.Image", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("ProductImages");
+                });
+
+            modelBuilder.Entity("B2B.Entities.Concrete.Product", b =>
+                {
+                    b.Navigation("ProductDetail")
+                        .IsRequired();
+
+                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }

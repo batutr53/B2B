@@ -22,7 +22,7 @@ namespace B2B.Business.Services.Concrete
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        public ProductService(IRepository<Product> repository, IUnitOfWork unitOfWork, IProductRepository productRepository, IMapper mapper) : base(repository, unitOfWork)
+        public ProductService(IGenericRepository<Product> repository, IUnitOfWork unitOfWork, IProductRepository productRepository, IMapper mapper) : base(repository, unitOfWork)
         {
             _productRepository = productRepository;
             _mapper = mapper;
@@ -30,7 +30,7 @@ namespace B2B.Business.Services.Concrete
 
         [PerformanceAspect(5)]
         [CacheAspect(duration: 1)]
-        [LogAspect(typeof(DatabaseLogger))]
+        [LogAspect(typeof(FileLogger))]
         public async Task<Response<List<ProductGetAllListDto>>> GetProductList()
         {
             var products = await _productRepository.GetList();
@@ -48,11 +48,7 @@ namespace B2B.Business.Services.Concrete
             return Response<List<ProductWithCategoryDto>>.Success(productsDto,200);
         }
 
-        //[CacheRemoveAspect("IProductService.Get")]
-        //public async Task<Response<List<Product>>> Add(Product product)
-        //{
-        // //   var add = await _productRepository.AddAsync(_mapper.Map<Product>(product));
-        //   // return Response<Product<>>.Success(add);
-        //}
+       
+        
     }
 }

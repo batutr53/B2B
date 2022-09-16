@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace B2B.DataAccess.Configurations
 {
-    public class ProductImageConfiguration : IEntityTypeConfiguration<ProductImage>
+    public class ImageConfiguration : IEntityTypeConfiguration<Image>
     {
-        public void Configure(EntityTypeBuilder<ProductImage> builder)
+        public void Configure(EntityTypeBuilder<Image> builder)
         {
+            builder.HasMany(b => b.ProductImages).WithOne(b => b.Image).HasForeignKey(b => b.ImageId);
             builder.Property(x => x.ImagesUrl).IsRequired();
         }
     }

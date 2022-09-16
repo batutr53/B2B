@@ -18,6 +18,7 @@ namespace B2B.DataAccess.Repositories.Concrete
 
         public IProductRepository Product => new ProductRepository(_context);
         public ICategoryRepository Category => new CategoryRepository(_context);
+        public IImageRepository Image => new ImageRepository(_context);
 
         public void Dispose()
         {

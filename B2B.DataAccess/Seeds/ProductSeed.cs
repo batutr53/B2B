@@ -21,7 +21,6 @@ namespace B2B.DataAccess.Seeds
                     Price = 73505,
                     Description = "HIZ TUTKUNUZUN YENİ PARTNERİ Tutkunuzu hızlandıracak,hız tutkunuza partner olacak Pulsar RS 200 ile tanışın.RS 200 ile yolculuklarınız hızlanacak, tutkunuz aşka dönüşecek.Pulsar RS 200 Hız tutkunuzun yeni partneri",
                     CategoryId = 1,
-                    ProductDetailId = 1,
                     BrandId = 1,
                     ModelId = 1,
                 },
@@ -32,7 +31,6 @@ namespace B2B.DataAccess.Seeds
                     Price = 118000,
                     Description = "Dominar 400'ün 29.4kW güç ve 35 Nm tork üretebilen canavar gücündeki motoru ile yol maceranıza hazırlanın ve yola koyulun.",
                     CategoryId =1,
-                    ProductDetailId = 2,
                     BrandId = 1,
                     ModelId = 2,
 

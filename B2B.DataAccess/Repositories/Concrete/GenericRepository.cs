@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace B2B.DataAccess.Repositories.Concrete
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly B2BDbContext _context;
         private readonly DbSet<T> _dbSet;
 
-        public Repository(B2BDbContext context)
+        public GenericRepository(B2BDbContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();

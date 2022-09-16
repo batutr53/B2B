@@ -15,7 +15,12 @@ namespace B2B.Business.Mapping
         public MapProfile()
         {
             CreateMap<Product, ProductDto>().ReverseMap();
-            CreateMap<Product, ProductGetAllListDto>().ForMember(s => s.Images,x=>x.MapFrom(a=>a.ProductImages));
+            CreateMap<Product, ProductCreateDto>().ReverseMap();
+            CreateMap<Product, ProductGetAllListDto>().ForMember(a => a.Images, b => b.MapFrom(x => x.ProductImages.Select(r => r.Image).ToList())).ReverseMap();
+            CreateMap<Image, ImageDto>().ReverseMap();
+            CreateMap<Image, ProductImageDto>().ReverseMap();
+            CreateMap<ProductImage, ProductImageDto>().ReverseMap();
+            CreateMap<Product, ProductImageDto>().ReverseMap();
             CreateMap<Product, ProductWithCategoryDto>().ForMember(x=>x.CategoryId,o=>o.MapFrom(s=>s.Category.Id));
             CreateMap<Category, ProductWithCategoryDto>().ReverseMap();
             CreateMap<Category, CategoryDto>().ReverseMap();

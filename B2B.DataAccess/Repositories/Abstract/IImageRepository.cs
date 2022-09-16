@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace B2B.DataAccess.Repositories.Abstract
 {
-    public interface ICategoryRepository:IGenericRepository<Category>
+    public interface IImageRepository:IGenericRepository<Image>
     {
     }
 }

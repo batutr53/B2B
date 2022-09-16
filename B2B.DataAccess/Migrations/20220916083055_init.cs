@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace B2B.DataAccess.Migrations
 {
-    public partial class initim : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,6 +36,34 @@ namespace B2B.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImagesUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Logs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Detail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Audit = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Logs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Models",
                 columns: table => new
                 {
@@ -45,34 +74,6 @@ namespace B2B.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Models", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductDetails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Memory = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductDetails", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductImages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ImagesUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductImages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,7 +110,6 @@ namespace B2B.DataAccess.Migrations
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    ProductDetailId = table.Column<int>(type: "int", nullable: false),
                     BrandId = table.Column<int>(type: "int", nullable: false),
                     ModelId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -134,33 +134,47 @@ namespace B2B.DataAccess.Migrations
                         principalTable: "Models",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_ProductDetails_ProductDetailId",
-                        column: x => x.ProductDetailId,
-                        principalTable: "ProductDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductProductImage",
+                name: "ProductDetails",
                 columns: table => new
                 {
-                    ProductImagesId = table.Column<int>(type: "int", nullable: false),
-                    ProductsId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Memory = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductProductImage", x => new { x.ProductImagesId, x.ProductsId });
+                    table.PrimaryKey("PK_ProductDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductProductImage_ProductImages_ProductImagesId",
-                        column: x => x.ProductImagesId,
-                        principalTable: "ProductImages",
+                        name: "FK_ProductDetails_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductImages",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ImageId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductImages", x => new { x.ProductId, x.ImageId });
+                    table.ForeignKey(
+                        name: "FK_ProductImages_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductProductImage_Products_ProductsId",
-                        column: x => x.ProductsId,
+                        name: "FK_ProductImages_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -186,6 +200,15 @@ namespace B2B.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "ImagesUrl" },
+                values: new object[,]
+                {
+                    { 1, "https://www.ekuralkan.com/Data/EditorFiles/kuralkan/htlm_dosyalar/rs200/banner-rs200.jpg" },
+                    { 2, "https://www.ekuralkan.com/Data/EditorFiles/360/dominar%20D400%20EURO%205%20aksesuarl%C4%B1/k15.png" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Models",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
@@ -196,31 +219,32 @@ namespace B2B.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "ProductDetails",
-                columns: new[] { "Id", "Color", "Memory" },
+                columns: new[] { "Id", "Color", "Memory", "ProductId" },
                 values: new object[,]
                 {
-                    { 1, "Black", null },
-                    { 2, "Red", null }
+                    { 1, "Black", null, null },
+                    { 2, "Red", null, null }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "BrandId", "CategoryId", "Description", "ModelId", "Name", "Price" },
+                values: new object[] { 1, 1, 1, "HIZ TUTKUNUZUN YENİ PARTNERİ Tutkunuzu hızlandıracak,hız tutkunuza partner olacak Pulsar RS 200 ile tanışın.RS 200 ile yolculuklarınız hızlanacak, tutkunuz aşka dönüşecek.Pulsar RS 200 Hız tutkunuzun yeni partneri", 1, "Bajaj Pulsar Rs 200 2022", 73505m });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "BrandId", "CategoryId", "Description", "ModelId", "Name", "Price" },
+                values: new object[] { 2, 1, 1, "Dominar 400'ün 29.4kW güç ve 35 Nm tork üretebilen canavar gücündeki motoru ile yol maceranıza hazırlanın ve yola koyulun.", 2, "Bajaj Pulsar Dominar Tur 400", 118000m });
 
             migrationBuilder.InsertData(
                 table: "ProductImages",
-                columns: new[] { "Id", "ImagesUrl", "ProductId" },
-                values: new object[,]
-                {
-                    { 1, "https://www.ekuralkan.com/Data/EditorFiles/kuralkan/htlm_dosyalar/rs200/banner-rs200.jpg", 0 },
-                    { 2, "https://www.ekuralkan.com/Data/EditorFiles/360/dominar%20D400%20EURO%205%20aksesuarl%C4%B1/k15.png", 0 }
-                });
+                columns: new[] { "ImageId", "ProductId" },
+                values: new object[] { 1, 1 });
 
             migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "Id", "BrandId", "CategoryId", "Description", "ModelId", "Name", "Price", "ProductDetailId" },
-                values: new object[] { 1, 1, 1, "HIZ TUTKUNUZUN YENİ PARTNERİ Tutkunuzu hızlandıracak,hız tutkunuza partner olacak Pulsar RS 200 ile tanışın.RS 200 ile yolculuklarınız hızlanacak, tutkunuz aşka dönüşecek.Pulsar RS 200 Hız tutkunuzun yeni partneri", 1, "Bajaj Pulsar Rs 200 2022", 73505m, 1 });
-
-            migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "Id", "BrandId", "CategoryId", "Description", "ModelId", "Name", "Price", "ProductDetailId" },
-                values: new object[] { 2, 1, 1, "Dominar 400'ün 29.4kW güç ve 35 Nm tork üretebilen canavar gücündeki motoru ile yol maceranıza hazırlanın ve yola koyulun.", 2, "Bajaj Pulsar Dominar Tur 400", 118000m, 2 });
+                table: "ProductImages",
+                columns: new[] { "ImageId", "ProductId" },
+                values: new object[] { 2, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BrandModel_ModelsId",
@@ -228,9 +252,16 @@ namespace B2B.DataAccess.Migrations
                 column: "ModelsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductProductImage_ProductsId",
-                table: "ProductProductImage",
-                column: "ProductsId");
+                name: "IX_ProductDetails_ProductId",
+                table: "ProductDetails",
+                column: "ProductId",
+                unique: true,
+                filter: "[ProductId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductImages_ImageId",
+                table: "ProductImages",
+                column: "ImageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_BrandId",
@@ -246,11 +277,6 @@ namespace B2B.DataAccess.Migrations
                 name: "IX_Products_ModelId",
                 table: "Products",
                 column: "ModelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_ProductDetailId",
-                table: "Products",
-                column: "ProductDetailId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -259,10 +285,16 @@ namespace B2B.DataAccess.Migrations
                 name: "BrandModel");
 
             migrationBuilder.DropTable(
-                name: "ProductProductImage");
+                name: "Logs");
+
+            migrationBuilder.DropTable(
+                name: "ProductDetails");
 
             migrationBuilder.DropTable(
                 name: "ProductImages");
+
+            migrationBuilder.DropTable(
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "Products");
@@ -275,9 +307,6 @@ namespace B2B.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Models");
-
-            migrationBuilder.DropTable(
-                name: "ProductDetails");
         }
     }
 }

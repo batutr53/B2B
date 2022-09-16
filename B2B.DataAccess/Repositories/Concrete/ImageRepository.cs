@@ -8,12 +8,10 @@ using System.Threading.Tasks;
 
 namespace B2B.DataAccess.Repositories.Concrete
 {
-    public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
+    public class ImageRepository : GenericRepository<Image>, IImageRepository
     {
-        private readonly B2BDbContext _dbContext;
-        public CategoryRepository(B2BDbContext context) : base(context)
+        public ImageRepository(B2BDbContext context) : base(context)
         {
-            _dbContext = context;
         }
     }
 }

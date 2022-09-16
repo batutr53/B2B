@@ -13,23 +13,8 @@ namespace B2B.DataAccess.Seeds
     {
         public void Configure(EntityTypeBuilder<ProductImage> builder)
         {
-            builder.HasData(
-                new ProductImage
-                {
-                    Id = 1,
-                    ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/kuralkan/htlm_dosyalar/rs200/banner-rs200.jpg",
-                    //ProductId = 1,
-                   
-                },
-                new ProductImage
-                {
-                    Id=2,
-                    ImagesUrl = "https://www.ekuralkan.com/Data/EditorFiles/360/dominar%20D400%20EURO%205%20aksesuarl%C4%B1/k15.png",
-                    //ProductId=2,
-                    
-                }
-                ) ;
-
+           builder.HasData(new ProductImage { ProductId = 1, ImageId = 1 });
+           builder.HasData(new ProductImage { ProductId = 2, ImageId = 2 });
         }
     }
 }

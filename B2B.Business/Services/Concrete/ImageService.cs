@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace B2B.Business.Services.Concrete
 {
-    public class CategoryService : Services<Category>, ICategoryService
+    public class ImageService : Services<Image>, IImageService
     {
-        public CategoryService(IGenericRepository<Category> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+        public ImageService(IGenericRepository<Image> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
         }
     }

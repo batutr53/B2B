@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace B2B.DataAccess.Repositories.Concrete
 {
-    public class ProductRepository : Repository<Product>, IProductRepository
+    public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
          private readonly B2BDbContext _dbContext;
         public ProductRepository(B2BDbContext context) : base(context)
@@ -24,7 +24,7 @@ namespace B2B.DataAccess.Repositories.Concrete
                 .Include(b => b.Brand)
                 .Include(m => m.Model)
                 .Include(p => p.ProductDetail)
-                .Include(pi => pi.ProductImages).AsNoTracking().ToListAsync();
+                .Include(pi => pi.ProductImages).ThenInclude(i=>i.Image).AsNoTracking().ToListAsync();
         }
 
         public async Task<List<Product>> GetProductWithCategory(int categoryId)

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace B2B.Entities.Dtos
 {
-    public class ProductImageDto
+    public class ImageDto
     {
-        public int ImageId { get; set; }
+        public string ImagesUrl { get; set; }
     }
 }
