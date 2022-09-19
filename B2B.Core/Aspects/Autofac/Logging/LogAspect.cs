@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace B2B.Core.Aspects.Autofac.Logging
 {
-   public class LogAspect:MethodInterception
+    public class LogAspect : MethodInterception
     {
-      private LoggerServiceBase _loggerServiceBase;
+        private LoggerServiceBase _loggerServiceBase;
 
         public LogAspect(Type loggerService)
         {
-            if (loggerService.BaseType!=typeof(LoggerServiceBase))
+            if (loggerService.BaseType != typeof(LoggerServiceBase))
             {
                 throw new System.Exception(AspectMessages.WrongLoggerType);
             }
@@ -26,7 +26,7 @@ namespace B2B.Core.Aspects.Autofac.Logging
 
         protected override void OnBefore(IInvocation invocation)
         {
-           _loggerServiceBase.Info(GetLogDetail(invocation));
+            _loggerServiceBase.Info(GetLogDetail(invocation));
         }
 
         private LogDetail GetLogDetail(IInvocation invocation)
@@ -42,7 +42,7 @@ namespace B2B.Core.Aspects.Autofac.Logging
                     Value = invocation.Arguments[i],
                     Type = invocation.Arguments[i].GetType().Name
                 });
-                
+
             }
 
             var logDetail = new LogDetail

@@ -35,9 +35,10 @@ namespace B2B.Business.Services.Concrete
 
         [PerformanceAspect(5)]
         [CacheAspect(duration: 1)]
-        [LogAspect(typeof(FileLogger))]
+        [LogAspect(typeof(DatabaseLogger))]
         public async Task<Response<List<ProductGetAllListDto>>> GetProductList()
         {
+          
             var products = await _productRepository.GetList();
             var productsDto = _mapper.Map<List<ProductGetAllListDto>>(products);
             return Response<List<ProductGetAllListDto>>.Success(productsDto, 200);

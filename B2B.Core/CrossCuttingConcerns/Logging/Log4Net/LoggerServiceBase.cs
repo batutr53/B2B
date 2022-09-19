@@ -57,4 +57,5 @@ namespace B2B.Core.CrossCuttingConcerns.Logging.Log4Net
                 _log.Error(logMessage);
         }
     }
+
 }
