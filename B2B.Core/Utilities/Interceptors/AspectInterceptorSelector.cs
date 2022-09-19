@@ -12,11 +12,31 @@ namespace B2B.Core.Utilities.Interceptors
     {
         public IInterceptor[] SelectInterceptors(Type type, MethodInfo method, IInterceptor[] interceptors)
         {
-            var classAttributes = type.GetCustomAttributes<MethodInterceptionBaseAttribute>
-                (true).ToList();
-            var methodAttributes = type.GetMethod(method.Name).GetCustomAttributes<MethodInterceptionBaseAttribute>(true);
-            classAttributes.AddRange(methodAttributes);
-            //classAttributes.Add(new ExceptionLogAspect(typeof(FileLogger)));
+            var classAttributes =
+                type.GetCustomAttributes<MethodInterceptionBaseAttribute>(true).ToList();
+
+            //Dışlanacak Methodlar. Bu method isimleri çakışmaya sebep olabiliyor.
+            string[] methodsToExclude = { "Validate", "Info", "Debug", "Warning", "Warn", "Error", "Fatal", "Localize", "GetStringResource", "GetResourceValue" };
+
+            if (!methodsToExclude.Contains(method.Name))
+            {
+                try//Api tarafında çağırılan bazı methodlar hataya sebep olduğu için try-catch bloğu içine aldım.
+                {
+                    var methodAttributes =
+                        type.GetMethod(method.Name).GetCustomAttributes<MethodInterceptionBaseAttribute>(true);
+
+                    classAttributes.AddRange(methodAttributes);
+                }
+                catch (Exception ex)
+                {
+                    // ignored 
+                }
+            }
+
+            //Tüm method class larına aşağıdaki Attribut u ekle. Tek tek bütün methodların üzerine yazmamak için.
+            //Burada Log4Net için burası aktif edilir...
+            //classAttributes.Add(new ExceptionLogAspect(typeof(FileLogger), (byte)EnumRisk.Medium));
+            //classAttributes.Add(new ExceptionLogAspect(typeof(DatabaseLogger))); Database e ulaşılamadığında hata logları yazılamayabilir. O yüzden FileLogger tercih ettik.
 
             return classAttributes.OrderBy(x => x.Priority).ToArray();
         }

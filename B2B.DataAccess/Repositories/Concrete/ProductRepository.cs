@@ -27,6 +27,11 @@ namespace B2B.DataAccess.Repositories.Concrete
                 .Include(pi => pi.ProductImages).ThenInclude(i=>i.Image).AsNoTracking().ToListAsync();
         }
 
+        public Product GetName(string name)
+        {
+            return _dbContext.Products.Where(a=>a.Name == name).FirstOrDefault();
+        }
+
         public async Task<List<Product>> GetProductWithCategory(int categoryId)
         {
             return await _dbContext.Products

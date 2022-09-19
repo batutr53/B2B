@@ -39,12 +39,10 @@ namespace B2B.API.Controllers
         }
 
         [HttpPost]
-        [CacheRemoveAspect("IProductService.Get")]
         public async Task<IActionResult> PostProduct(ProductCreateDto productDto)
         {
-            var product = await _productService.AddAsync(_mapper.Map<Product>(productDto));
-            var productDtos = _mapper.Map<ProductCreateDto>(product);
-            return CreateActionResultInstance(Response<ProductCreateDto>.Success(productDtos, 201));
+           var product = await _productService.AddProduct(productDto);
+            return Ok(product);
         }
 
     }

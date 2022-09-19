@@ -10,5 +10,6 @@ namespace B2B.Core.Utilities.Messages
     {
         public static string WrongValidationType = "Wrong validation type";
         public static string WrongLoggerType = "Wrong logger type";
+        public static string ProuctAdded = "Product added";
     }
 }

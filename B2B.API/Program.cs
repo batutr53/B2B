@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using B2B.API.Extensions;
 using B2B.Business.Modules;
 using B2B.Core.DependencyResolvers;
 using B2B.Core.Extensions;
@@ -9,16 +10,23 @@ using B2B.SharedTools;
 using B2B.SharedTools.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+ConfigurationManager Configuration = builder.Configuration;
+IWebHostEnvironment Environment = builder.Environment;
 
 // Add services to the container.
+
+#region AutoFacRepoService
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
+#endregion
+
+builder.Services.AddControllerSettings();
 
 #region SqlServerConnection
 var conString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -60,19 +68,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 #endregion
 
 
-builder.Services.AddControllers(opt =>
-{
- //   opt.Filters.Add(new AuthorizeFilter());
-   // opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
-});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-
-#region AutoFacRepoService
-builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
-#endregion
 
 //var redisSettings = builder.Configuration.GetSection("RedisSettings");
 //builder.Services.Configure<RedisSettings>(redisSettings);
@@ -90,9 +88,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.ConfigureCustomExceptionMiddleware();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 

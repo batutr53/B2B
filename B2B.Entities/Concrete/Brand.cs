@@ -13,6 +13,5 @@ namespace B2B.Entities.Concrete
      
 
         public ICollection<Product> Products { get; set; }
-        public ICollection<Model> Models { get; set; }
     }
 }

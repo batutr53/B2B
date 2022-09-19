@@ -11,6 +11,7 @@ namespace B2B.DataAccess.Repositories.Abstract
     public interface IProductRepository:IGenericRepository<Product>
     {
         Task<List<Product>> GetList();
+        Product GetName(string name);
         Task<List<Product>> GetProductWithCategory(int categoryId);
     }
 }

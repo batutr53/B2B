@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using B2B.Business.Constants;
 using B2B.Business.Services.Abstract;
 using B2B.Business.ValidationRules.FluentValidation;
 using B2B.Core.Aspects.Autofac.Caching;
@@ -6,6 +7,8 @@ using B2B.Core.Aspects.Autofac.Logging;
 using B2B.Core.Aspects.Autofac.Performance;
 using B2B.Core.Aspects.Autofac.Validation;
 using B2B.Core.CrossCuttingConcerns.Logging.Log4Net.Layouts.Loggers;
+using B2B.Core.Utilities.Business;
+using B2B.Core.Utilities.Results;
 using B2B.DataAccess.Repositories.Abstract;
 using B2B.Entities.Concrete;
 using B2B.Entities.Dtos;
@@ -20,12 +23,14 @@ namespace B2B.Business.Services.Concrete
 {
     public class ProductService : Services<Product>, IProductService
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IProductRepository _productRepository;        
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
         public ProductService(IGenericRepository<Product> repository, IUnitOfWork unitOfWork, IProductRepository productRepository, IMapper mapper) : base(repository, unitOfWork)
         {
             _productRepository = productRepository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [PerformanceAspect(5)]
@@ -38,7 +43,7 @@ namespace B2B.Business.Services.Concrete
             return Response<List<ProductGetAllListDto>>.Success(productsDto, 200);
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(ProductCreateDtoValidator))]
         [CacheAspect(duration:1)]
         [LogAspect(typeof(FileLogger))]
         public async Task<Response<List<ProductWithCategoryDto>>> GetProductWithCategory(int categoryId)
@@ -47,8 +52,28 @@ namespace B2B.Business.Services.Concrete
             var productsDto = _mapper.Map<List<ProductWithCategoryDto>>(products);
             return Response<List<ProductWithCategoryDto>>.Success(productsDto,200);
         }
+        private IResult CheckIfNameExists(string name)
+        {
+            if (_productRepository.GetName(name) != null)
+            {
+                return new ErrorResult(Messages.ProductNameAlreadyExists);
+            }
+            return new SuccessResult();
+        }
 
-       
-        
+        [CacheRemoveAspect("IProductService.Get")]
+        [LogAspect(typeof(FileLogger))]
+        public async Task<IResult> AddProduct(ProductCreateDto product)
+        {
+           IResult result = BusinessRules.Run(CheckIfNameExists(product.Name));
+            if (result != null)
+            {
+                return result;
+            }
+            var dto = _mapper.Map<Product>(product);
+            await _productRepository.AddAsync(dto);
+            await _unitOfWork.SaveAsync();
+            return new SuccessResult(Messages.ProductAdded);
+        }
     }
 }
