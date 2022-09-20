@@ -10,6 +10,6 @@ namespace B2B.Entities.Concrete
     {
         public int Id { get; set; }
         public string ImagesUrl { get; set; }
-        public List<ProductImage> ProductImages { get; set; }
+        public virtual List<ProductImage> ProductImages { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Castle.DynamicProxy;
+﻿using B2B.Core.Aspects.Autofac.Exception;
+using B2B.Core.CrossCuttingConcerns.Logging.Log4Net.Layouts.Loggers;
+using Castle.DynamicProxy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,7 @@ namespace B2B.Core.Utilities.Interceptors
 {
     public class AspectInterceptorSelector : IInterceptorSelector
     {
+
         public IInterceptor[] SelectInterceptors(Type type, MethodInfo method, IInterceptor[] interceptors)
         {
             var classAttributes =
@@ -20,23 +23,20 @@ namespace B2B.Core.Utilities.Interceptors
 
             if (!methodsToExclude.Contains(method.Name))
             {
-                try//Api tarafında çağırılan bazı methodlar hataya sebep olduğu için try-catch bloğu içine aldım.
+                try
                 {
                     var methodAttributes =
                         type.GetMethod(method.Name).GetCustomAttributes<MethodInterceptionBaseAttribute>(true);
 
                     classAttributes.AddRange(methodAttributes);
+                    classAttributes.Add(new ExceptionLogAspect(typeof(FileLogger)));
                 }
                 catch (Exception ex)
                 {
                     // ignored 
                 }
             }
-
-            //Tüm method class larına aşağıdaki Attribut u ekle. Tek tek bütün methodların üzerine yazmamak için.
-            //Burada Log4Net için burası aktif edilir...
-            //classAttributes.Add(new ExceptionLogAspect(typeof(FileLogger), (byte)EnumRisk.Medium));
-            //classAttributes.Add(new ExceptionLogAspect(typeof(DatabaseLogger))); Database e ulaşılamadığında hata logları yazılamayabilir. O yüzden FileLogger tercih ettik.
+            //classAttributes.Add(new ExceptionLogAspect(typeof(DatabaseLogger)));
 
             return classAttributes.OrderBy(x => x.Priority).ToArray();
         }

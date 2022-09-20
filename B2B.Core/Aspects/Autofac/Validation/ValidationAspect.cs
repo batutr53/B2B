@@ -13,12 +13,12 @@ namespace B2B.Core.Aspects.Autofac.Validation
 {
     public class ValidationAspect:MethodInterception
     {
-        Type _validatorType;
+        private Type _validatorType;
         public ValidationAspect(Type validatorType)
         {
             if (!typeof(IValidator).IsAssignableFrom(validatorType))
             {
-                throw new Exception(AspectMessages.WrongValidationType);
+                throw new System.Exception(AspectMessages.WrongValidationType);
             }
             _validatorType = validatorType;
         }

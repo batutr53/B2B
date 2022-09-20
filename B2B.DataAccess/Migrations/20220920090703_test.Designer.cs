@@ -4,6 +4,7 @@ using B2B.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace B2B.DataAccess.Migrations
 {
     [DbContext(typeof(B2BDbContext))]
-    partial class B2BDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220920090703_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,6 +254,7 @@ namespace B2B.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ProductId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
@@ -263,8 +266,7 @@ namespace B2B.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId")
-                        .IsUnique()
-                        .HasFilter("[ProductId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("ProductDetails");
 
@@ -341,7 +343,9 @@ namespace B2B.DataAccess.Migrations
                 {
                     b.HasOne("B2B.Entities.Concrete.Product", "Product")
                         .WithOne("ProductDetail")
-                        .HasForeignKey("B2B.Entities.Concrete.ProductDetail", "ProductId");
+                        .HasForeignKey("B2B.Entities.Concrete.ProductDetail", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
                 });

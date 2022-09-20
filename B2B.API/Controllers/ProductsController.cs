@@ -45,5 +45,12 @@ namespace B2B.API.Controllers
             return Ok(product);
         }
 
+        [HttpPut]
+        public IActionResult Update(ProductUpdateDto productUpdate)
+        {
+            var product =  _productService.UpdateAsync(productUpdate);
+            return Ok(product);
+        }
+
     }
 }

@@ -18,11 +18,14 @@ namespace B2B.DataAccess.Seeds
                 {
                     Id = 1,
                     Color = "Black",
+                    ProductId = 1,
                 },
                 new ProductDetail
                 {
                     Id = 2,
-                    Color = "Red"
+                    Color = "Red",
+                    ProductId=2
+                    
                 });
         }
     }

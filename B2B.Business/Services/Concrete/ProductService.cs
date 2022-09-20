@@ -44,7 +44,7 @@ namespace B2B.Business.Services.Concrete
             return Response<List<ProductGetAllListDto>>.Success(productsDto, 200);
         }
 
-        [ValidationAspect(typeof(ProductCreateDtoValidator))]
+        
         [CacheAspect(duration:1)]
         [LogAspect(typeof(FileLogger))]
         public async Task<Response<List<ProductWithCategoryDto>>> GetProductWithCategory(int categoryId)
@@ -62,6 +62,7 @@ namespace B2B.Business.Services.Concrete
             return new SuccessResult();
         }
 
+        [ValidationAspect(typeof(ProductCreateDtoValidator),Priority = 1)]
         [CacheRemoveAspect("IProductService.Get")]
         [LogAspect(typeof(FileLogger))]
         public async Task<IResult> AddProduct(ProductCreateDto product)
@@ -76,5 +77,16 @@ namespace B2B.Business.Services.Concrete
             await _unitOfWork.SaveAsync();
             return new SuccessResult(Messages.ProductAdded);
         }
+
+
+        public IResult UpdateAsync(ProductUpdateDto product)
+        {
+            var dto = _mapper.Map<Product>(product);
+            _productRepository.Update(dto);
+            _unitOfWork.Save();
+            return new SuccessResult(Messages.ProductUpdated);
+        }
+
+      
     }
 }

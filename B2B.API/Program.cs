@@ -30,7 +30,7 @@ builder.Services.AddControllerSettings();
 
 #region SqlServerConnection
 var conString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<B2BDbContext>(opt => { opt.UseSqlServer(conString); });
+builder.Services.AddDbContext<B2BDbContext>(opt => { opt.UseSqlServer(conString).EnableSensitiveDataLogging();});
 #endregion
 #region JWT
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();

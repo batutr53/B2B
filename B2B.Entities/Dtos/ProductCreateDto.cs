@@ -8,7 +8,6 @@ namespace B2B.Entities.Dtos
 {
     public class ProductCreateDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
