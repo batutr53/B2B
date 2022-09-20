@@ -52,5 +52,12 @@ namespace B2B.API.Controllers
             return Ok(product);
         }
 
+        [HttpDelete("id")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _productService.GetByIdAsync(id);
+            await _productService.RemoveAsync(product);
+            return Ok(product);
+        }
     }
 }

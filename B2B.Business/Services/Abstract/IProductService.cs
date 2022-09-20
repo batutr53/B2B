@@ -16,5 +16,6 @@ namespace B2B.Business.Services.Abstract
         Task<Response<List<ProductGetAllListDto>>> GetProductList();
         Task<Response<List<ProductWithCategoryDto>>> GetProductWithCategory(int categoryId);
         IResult UpdateAsync(ProductUpdateDto productUpdate);
+
     }
 }

@@ -13,7 +13,7 @@ namespace B2B.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Image> builder)
         {
-            builder.HasMany(b => b.ProductImages).WithOne(b => b.Image).HasForeignKey(b => b.ImageId);
+           //builder.HasMany(b => b.ProductImages).WithOne(b => b.Image).HasForeignKey(b => b.ImageId);
             builder.Property(x => x.ImagesUrl).IsRequired();
         }
     }

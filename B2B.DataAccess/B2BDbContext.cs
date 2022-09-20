@@ -18,7 +18,7 @@ namespace B2B.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
           
-            modelBuilder.Entity<ProductImage>().HasKey(sc => new { sc.ProductId, sc.ImageId });
+            //modelBuilder.Entity<ProductImage>().HasKey(sc => new { sc.ProductId, sc.ImageId });
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
         }
@@ -30,6 +30,6 @@ namespace B2B.DataAccess
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Model> Models { get; set; }
         public DbSet<Log> Logs { get; set; }
-        public DbSet<ProductImage> ProductImages { get; set; }
+      //  public DbSet<ProductImage> ProductImages { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace B2B.Entities.Concrete
         public int ModelId { get; set; }
         public virtual Category Category { get; set; }
         public virtual ProductDetail ProductDetail { get; set; }
-        public virtual List<ProductImage> ProductImages { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
         public virtual Brand Brand { get; set; }
         public virtual Model Model { get; set; }
     }

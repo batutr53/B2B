@@ -24,7 +24,7 @@ namespace B2B.DataAccess.Repositories.Concrete
                 .Include(b => b.Brand)
                 .Include(m => m.Model)
                 .Include(p => p.ProductDetail)
-                .Include(pi => pi.ProductImages).ThenInclude(i=>i.Image).AsNoTracking().ToListAsync();
+                .Include(i=>i.Images).AsNoTracking().ToListAsync(); //.Include(pi => pi.ProductImages)
         }
 
         public Product GetName(string name)

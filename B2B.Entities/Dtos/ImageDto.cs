@@ -8,6 +8,7 @@ namespace B2B.Entities.Dtos
 {
     public class ImageDto
     {
+        public int Id { get; set; }
         public string ImagesUrl { get; set; }
     }
 }

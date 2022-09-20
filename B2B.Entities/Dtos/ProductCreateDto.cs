@@ -15,6 +15,6 @@ namespace B2B.Entities.Dtos
         public int BrandId { get; set; }
         public int ModelId { get; set; }
         public ProductDetailDto ProductDetail { get; set; }
-        public List<ProductImageDto> ProductImages { get; set; }
+        public ICollection<ImageDto> Images { get; set; }
     }
 }
